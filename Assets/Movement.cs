@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    public float targetSpeed = 5f;
-    Rigidbody2D body = null;
-    Vector2 direction = Vector2.zero;
+    public Blackboard blackboard = null;
+    private Rigidbody2D body = null;
 
     private void Awake()
     {
@@ -17,18 +16,44 @@ public class Movement : MonoBehaviour
     {
         float xDir = Input.GetAxisRaw("Horizontal");
         float yDir = Input.GetAxisRaw("Vertical");
-        direction = new Vector2(xDir, yDir);
+        blackboard.moveDirectionTarget = new Vector2(xDir, yDir);
     }
 
     private void FixedUpdate()
     {
-        Vector2 targetVelocity = direction.normalized * targetSpeed;
+        if(!blackboard.canMove | !Mathf.Approximately(blackboard.moveCooldown, 0f)) return;
+        Vector2 targetSpeed = blackboard.moveDirectionTarget.normalized * blackboard.moveSpeedTarget;   //Calculate the direction we want to move in and our desired velocity
+        Vector2 adjustedSpeed = Vector2.Lerp(body.velocity, targetSpeed, 1f);                           //We can reduce are control using Lerp() this smooths changes to are direction and speed
 
-        float speedDiff = Mathf.Abs(targetVelocity.magnitude) - targetSpeed / (targetSpeed - 0f);
-        float actualSpeed = speedDiff * targetSpeed;
-        Debug.Log(speedDiff);
-        body.AddForce(targetVelocity);
-        if(Mathf.Abs(body.velocity.magnitude) >= targetSpeed)
-            body.velocity = targetVelocity;
+        float accelRate = (Mathf.Abs(targetSpeed.magnitude) > 0.01f) ? blackboard.acceleration : blackboard.decceleration;
+
+        //Gets an acceleration value based on if we are accelerating (includes turning) 
+
+        #region Conserve Momentum
+        //We won't slow the player down if they are moving in their desired direction but at a greater speed than their maxSpeed
+        if (blackboard.conserveMomentum && Mathf.Abs(body.velocity.magnitude) > Mathf.Abs(adjustedSpeed.magnitude) && Mathf.Sign(body.velocity.magnitude) == Mathf.Sign(adjustedSpeed.magnitude) && Mathf.Abs(adjustedSpeed.magnitude) > 0.01f)
+        {
+            //Prevent any deceleration from happening, or in other words conserve our current momentum
+            //You could experiment with allowing for the player to slightly increae their speed whilst in this "state"
+            accelRate = 0;
+        }
+        #endregion
+
+        Vector2 speedDif = adjustedSpeed - body.velocity;         //Calculate difference between current velocity and desired velocity
+        Vector2 movement = speedDif * accelRate;                //Calculate force along x-axis to apply to the player
+        body.AddForce(movement * body.mass, ForceMode2D.Force); //Convert this to a vector and apply to rigidbody
+
+        // For those interested here is what AddForce() will do
+        /*
+            RB.velocity = new Vector2(RB.velocity.x + (Time.fixedDeltaTime * speedDif * accelRate) / RB.mass, RB.velocity.y);
+            Time.fixedDeltaTime is by default in Unity 0.02 seconds equal to 50 FixedUpdate() calls per second
+       */
+
+        // Platform Origin Effect -- Jumping velocity bugged
+        /*
+            Collider2D platformCollider = Physics2D.OverlapBox(_groundCheckPoint.position, _groundCheckSize, 0, _groundLayer);
+		    if (isGrounded && isGrounded.TryGetComponent(out Rigidbody2D platformBody))
+			    body.velocity = Vector2.ClampMagnitude(body.velocity + (platformBody.velocity * 0.3f), runMaxSpeed);
+        */
     }
 }
