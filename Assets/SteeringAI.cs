@@ -21,6 +21,7 @@ public class SteeringAI : MonoBehaviour
     public Vector2[] avoidanceDirections;
     public float[] unfavorableDirections;
     public float[] favorableDirections;
+    public float[] guidanceDirections;
 
     public Blackboard blackboard = null;
 
@@ -47,12 +48,28 @@ public class SteeringAI : MonoBehaviour
         }
     }
 
+    public void Computation()
+    {
+        int max = avoidanceDirections.Length;
+        for (int i = 0; i < max; i++)
+        {
+            Vector2 direction           = avoidanceDirections[i];
+
+            float directionProximity    = Vector2.Dot(blackboard.aimDirectionTarget, direction);
+            float avoidanceMultiplier   = unfavorableDirections[i] * ((directionProximity + 1) * 0.5f);
+            float seekMultiplier        = favorableDirections[i] * ((directionProximity + 1) * 0.5f);
+
+            guidanceDirections[i]       = seekMultiplier - avoidanceMultiplier;
+        }
+    }
+
     private void FixedUpdate()
     {
-        // avoidence
+        // Avoidence & Seeking
         Detection(avoidenceHits, avoidenceContactFilter, unfavorableDirections, avoidenceDistanceStart, avoidenceDistanceLength);
-        // seeking
         Detection(seekingHits, seekingContactFilter, favorableDirections, seekingDistanceStart, seekingDistanceLength);
+        Computation();
+
     }
 
     private void Awake()
@@ -71,6 +88,7 @@ public class SteeringAI : MonoBehaviour
         };
         favorableDirections = new float[8];
         unfavorableDirections = new float[8];
+        guidanceDirections = new float[8];
 
         avoidenceHits = new RaycastHit2D[1];
         seekingHits = new RaycastHit2D[1];

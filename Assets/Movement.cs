@@ -5,12 +5,6 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     public Blackboard blackboard = null;
-    private Rigidbody2D body = null;
-
-    private void Awake()
-    {
-        body = GetComponent<Rigidbody2D>();
-    }
 
     private void Update()
     {
@@ -22,13 +16,14 @@ public class Movement : MonoBehaviour
     private void FixedUpdate()
     {
         if(!blackboard.canMove | !Mathf.Approximately(blackboard.moveCooldown, 0f)) return;
+
+        Rigidbody2D body = blackboard.body;
         Vector2 targetSpeed = blackboard.moveDirectionTarget.normalized * blackboard.moveSpeedTarget;   //Calculate the direction we want to move in and our desired velocity
         Vector2 adjustedSpeed = Vector2.Lerp(body.velocity, targetSpeed, 1f);                           //We can reduce are control using Lerp() this smooths changes to are direction and speed
 
-        float accelRate = (Mathf.Abs(targetSpeed.magnitude) > 0.01f) ? blackboard.acceleration : blackboard.decceleration;
+        float accelRate = Mathf.Abs(targetSpeed.magnitude) > 0.01f ? blackboard.acceleration : blackboard.decceleration;
 
-        //Gets an acceleration value based on if we are accelerating (includes turning) 
-
+        //Gets an acceleration value based on if we are accelerating (includes turning)
         #region Conserve Momentum
         //We won't slow the player down if they are moving in their desired direction but at a greater speed than their maxSpeed
         if (blackboard.conserveMomentum && Mathf.Abs(body.velocity.magnitude) > Mathf.Abs(adjustedSpeed.magnitude) && Mathf.Sign(body.velocity.magnitude) == Mathf.Sign(adjustedSpeed.magnitude) && Mathf.Abs(adjustedSpeed.magnitude) > 0.01f)
@@ -39,9 +34,10 @@ public class Movement : MonoBehaviour
         }
         #endregion
 
-        Vector2 speedDif = adjustedSpeed - body.velocity;         //Calculate difference between current velocity and desired velocity
-        Vector2 movement = speedDif * accelRate;                //Calculate force along x-axis to apply to the player
-        body.AddForce(movement * body.mass, ForceMode2D.Force); //Convert this to a vector and apply to rigidbody
+
+        Vector2 speedDif = adjustedSpeed - body.velocity;               //Calculate difference between current velocity and desired velocity
+        Vector2 movement = speedDif * accelRate;                        //Calculate force along x-axis to apply to the player
+        body.AddForce(movement * body.mass, ForceMode2D.Force);         //Convert this to a vector and apply to rigidbody
 
         // For those interested here is what AddForce() will do
         /*
