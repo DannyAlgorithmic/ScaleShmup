@@ -150,6 +150,7 @@ GameObject:
   - component: {fileID: 6860716854727114835}
   - component: {fileID: 7955641725858474226}
   - component: {fileID: 7174018546019239555}
+  - component: {fileID: 4884574999662204359}
   m_Layer: 0
   m_Name: Agent
   m_TagString: Player
@@ -215,7 +216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeedCurrent: 0
-  moveSpeedTarget: 6
+  moveSpeedTarget: 2
   acceleration: 27
   decceleration: 16
   moveCooldown: 0
@@ -262,6 +263,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blackboard: {fileID: 6860716854727114835}
+--- !u!114 &4884574999662204359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1859905479788694950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b17611d0b7916a64b96db6a1419768ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletDefault: {fileID: 36636330331607527, guid: 0fa6acb03edd83f45957fe497c957032, type: 3}
+  bulletType1: {fileID: 36636330331607527, guid: 0a35287a425996045a360a934e354570, type: 3}
+  bulletType2: {fileID: 36636330331607527, guid: aac8cedeaa62cf9418a375faf60b8d54, type: 3}
+  bulletType3: {fileID: 36636330331607527, guid: 2408cd7f16f482140834e7cfbe66166e, type: 3}
+  firePoint: {fileID: 5214575920025827491}
+  animator: {fileID: 6433997427535803889}
+  cooldownAtaque: 0.2
+  maxBulletsInClip: 6
+  reloadTime: 1.2
+  maxAmmoType1: 50
+  maxAmmoType2: 50
+  maxAmmoType3: 50
 --- !u!1 &2039667451811162046
 GameObject:
   m_ObjectHideFlags: 0
@@ -545,7 +570,7 @@ Transform:
   m_GameObject: {fileID: 7076101804830780901}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.0319, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -716,6 +741,6 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.00013391674, y: 0.17815362}
-  m_Size: {x: 0.2749147, y: 0.3395824}
+  m_Offset: {x: 0.0003951192, y: 0.19190842}
+  m_Size: {x: 0.2611599, y: 0.367092}
   m_Direction: 0
