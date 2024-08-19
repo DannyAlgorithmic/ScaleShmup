@@ -150,6 +150,8 @@ GameObject:
   - component: {fileID: 6860716854727114835}
   - component: {fileID: 7955641725858474226}
   - component: {fileID: 7174018546019239555}
+  - component: {fileID: 8729008301814531418}
+  - component: {fileID: 667909604880451492}
   m_Layer: 0
   m_Name: Agent
   m_TagString: Player
@@ -187,7 +189,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 10
+  m_Mass: 15
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0
@@ -215,27 +217,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeedCurrent: 0
-  moveSpeedTarget: 6
+  moveSpeedTarget: 4
   acceleration: 27
   decceleration: 16
   moveCooldown: 0
   canMove: 1
-  conserveMomentum: 1
   moveDirectionCurrent: {x: 0, y: 0}
   moveDirectionInput: {x: 0, y: 0}
   moveDirectionTarget: {x: 0, y: 0}
   moveDirectionHistory: []
-  rotationSpeedCurrent: 0
-  rotationSpeedTarget: 0
-  rotationCooldown: 0
-  canRotation: 1
-  aimDirectionCurrent: {x: 0, y: 0}
-  aimDirectionInput: {x: 0, y: 0}
-  aimDirectionTarget: {x: 0, y: 1}
-  aimDirectionHistory: []
   dragDuringMoveCooldown: 0.1
   dragWhenOutOfControl: 14
+  agent: {fileID: 667909604880451492}
+  pathValid: 0
   body: {fileID: 1655574642815766937}
+  trans: {fileID: 8449815458456237810}
+  impactCollider: {fileID: 3723225061204742562}
+  hitCollider: {fileID: 848871291843733102}
 --- !u!114 &7955641725858474226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,6 +260,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blackboard: {fileID: 6860716854727114835}
+--- !u!114 &8729008301814531418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1859905479788694950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b17611d0b7916a64b96db6a1419768ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletDefault: {fileID: 36636330331607527, guid: 0fa6acb03edd83f45957fe497c957032, type: 3}
+  bulletType1: {fileID: 36636330331607527, guid: 0a35287a425996045a360a934e354570, type: 3}
+  bulletType2: {fileID: 36636330331607527, guid: aac8cedeaa62cf9418a375faf60b8d54, type: 3}
+  bulletType3: {fileID: 36636330331607527, guid: 2408cd7f16f482140834e7cfbe66166e, type: 3}
+  firePoint: {fileID: 5214575920025827491}
+  animator: {fileID: 6433997427535803889}
+  cooldownAtaque: 0.075
+  maxBulletsInClip: 12
+  reloadTime: 2
+  maxAmmoType1: 30
+  maxAmmoType2: 30
+  maxAmmoType3: 30
+--- !u!195 &667909604880451492
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1859905479788694950}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.18
+  m_Speed: 0
+  m_Acceleration: 0
+  avoidancePriority: 50
+  m_AngularSpeed: 0
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 0
+  m_AutoBraking: 0
+  m_AutoRepath: 0
+  m_Height: 0.18
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 0
 --- !u!1 &2039667451811162046
 GameObject:
   m_ObjectHideFlags: 0
@@ -519,6 +563,73 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 7.15
+--- !u!1 &4141522796178113351
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6327216279733076386}
+  - component: {fileID: 444373174957570997}
+  m_Layer: 31
+  m_Name: Detection
+  m_TagString: Player
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6327216279733076386
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4141522796178113351}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4048350549253292776}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &444373174957570997
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4141522796178113351}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0003951192, y: 0.19190842}
+  m_Size: {x: 0.2611599, y: 0.367092}
+  m_Direction: 0
 --- !u!1 &7076101804830780901
 GameObject:
   m_ObjectHideFlags: 0
@@ -545,7 +656,7 @@ Transform:
   m_GameObject: {fileID: 7076101804830780901}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.0319, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -570,10 +681,10 @@ CircleCollider2D:
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 2147484023
   m_ForceReceiveLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 2147484023
   m_ContactCaptureLayers:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -619,6 +730,7 @@ Transform:
   - {fileID: 2787855457854115381}
   - {fileID: 3198221359286118871}
   - {fileID: 8276963801027889818}
+  - {fileID: 6327216279733076386}
   m_Father: {fileID: 8449815458456237810}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7513993759325313547
@@ -716,6 +828,6 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.00013391674, y: 0.17815362}
-  m_Size: {x: 0.2749147, y: 0.3395824}
+  m_Offset: {x: 0.0003951192, y: 0.19190842}
+  m_Size: {x: 0.2611599, y: 0.367092}
   m_Direction: 0
