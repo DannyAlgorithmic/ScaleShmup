@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SoutheastTorso
+  m_Name: NorthTorso
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,7 +21,7 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 1946825266, guid: 477958f2709d57541aba20145f1e6dd9, type: 3}
+      value: {fileID: 1140628157, guid: 24028323dcc2ff347884e24849f5855e, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -44,7 +44,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 1946825266, guid: 477958f2709d57541aba20145f1e6dd9, type: 3}
+    - {fileID: 1140628157, guid: 24028323dcc2ff347884e24849f5855e, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
