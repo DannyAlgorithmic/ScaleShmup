@@ -20,11 +20,11 @@ public class Blackboard : MonoBehaviour
     [Space(5)]
     public List<Vector2> moveDirectionHistory;
 
-    [Space(10), Header("Aiming")]
-    public float aimSpeedCurrent;
-    public float aimSpeedTarget;
-    public float aimCooldown = 0f;
-    public bool canAim = true;
+    [Space(10), Header("Rotation")]
+    public float rotationSpeedCurrent;
+    public float rotationSpeedTarget;
+    public float rotationCooldown = 0f;
+    public bool canRotation = true;
 
     [Space(5)]
     public Vector2 aimDirectionCurrent;
@@ -48,7 +48,7 @@ public class Blackboard : MonoBehaviour
     private void Update()
     {
         moveCooldown    = Mathf.Max(0f, moveCooldown    - Time.deltaTime);
-        aimCooldown     = Mathf.Max(0f, aimCooldown     - Time.deltaTime);
+        rotationCooldown     = Mathf.Max(0f, rotationCooldown     - Time.deltaTime);
 
         if (Input.GetKeyDown(KeyCode.Space) && Mathf.Approximately(moveCooldown, 0f))
             moveCooldown = 2.3f;

@@ -6,13 +6,6 @@ public class Movement : MonoBehaviour
 {
     public Blackboard blackboard = null;
 
-    private void Update()
-    {
-        float xDir = Input.GetAxisRaw("Horizontal");
-        float yDir = Input.GetAxisRaw("Vertical");
-        blackboard.moveDirectionTarget = new Vector2(xDir, yDir);
-    }
-
     private void FixedUpdate()
     {
         if(!blackboard.canMove | !Mathf.Approximately(blackboard.moveCooldown, 0f)) return;
