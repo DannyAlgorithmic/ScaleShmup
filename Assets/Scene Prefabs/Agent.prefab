@@ -151,7 +151,7 @@ GameObject:
   - component: {fileID: 7955641725858474226}
   - component: {fileID: 7174018546019239555}
   - component: {fileID: 8729008301814531418}
-  - component: {fileID: 667909604880451492}
+  - component: {fileID: 2874974598871840630}
   m_Layer: 0
   m_Name: Agent
   m_TagString: Player
@@ -228,7 +228,7 @@ MonoBehaviour:
   moveDirectionHistory: []
   dragDuringMoveCooldown: 0.1
   dragWhenOutOfControl: 14
-  agent: {fileID: 667909604880451492}
+  agent: {fileID: 0}
   pathValid: 0
   body: {fileID: 1655574642815766937}
   trans: {fileID: 8449815458456237810}
@@ -284,28 +284,19 @@ MonoBehaviour:
   maxAmmoType1: 30
   maxAmmoType2: 30
   maxAmmoType3: 30
---- !u!195 &667909604880451492
-NavMeshAgent:
+--- !u!114 &2874974598871840630
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1859905479788694950}
   m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.18
-  m_Speed: 0
-  m_Acceleration: 0
-  avoidancePriority: 50
-  m_AngularSpeed: 0
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 0
-  m_AutoBraking: 0
-  m_AutoRepath: 0
-  m_Height: 0.18
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05c06cda4a0cdea4ba9bc3f1f65383f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shootSystem: {fileID: 8729008301814531418}
 --- !u!1 &2039667451811162046
 GameObject:
   m_ObjectHideFlags: 0
@@ -574,7 +565,7 @@ GameObject:
   - component: {fileID: 6327216279733076386}
   - component: {fileID: 444373174957570997}
   m_Layer: 31
-  m_Name: Detection
+  m_Name: Detection Collider
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -630,6 +621,73 @@ CapsuleCollider2D:
   m_Offset: {x: 0.0003951192, y: 0.19190842}
   m_Size: {x: 0.2611599, y: 0.367092}
   m_Direction: 0
+--- !u!1 &5862421111135597150
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2603104006351023096}
+  - component: {fileID: 5054092623221279470}
+  m_Layer: 30
+  m_Name: Collection Collider
+  m_TagString: Player
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2603104006351023096
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5862421111135597150}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4048350549253292776}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &5054092623221279470
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5862421111135597150}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0003951192, y: 0.19190842}
+  m_Size: {x: 0.2611599, y: 0.367092}
+  m_Direction: 0
 --- !u!1 &7076101804830780901
 GameObject:
   m_ObjectHideFlags: 0
@@ -641,7 +699,7 @@ GameObject:
   - component: {fileID: 8276963801027889818}
   - component: {fileID: 3723225061204742562}
   m_Layer: 7
-  m_Name: Impacts
+  m_Name: Impact Collider
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -731,6 +789,7 @@ Transform:
   - {fileID: 3198221359286118871}
   - {fileID: 8276963801027889818}
   - {fileID: 6327216279733076386}
+  - {fileID: 2603104006351023096}
   m_Father: {fileID: 8449815458456237810}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7513993759325313547
@@ -775,7 +834,7 @@ GameObject:
   - component: {fileID: 3198221359286118871}
   - component: {fileID: 848871291843733102}
   m_Layer: 6
-  m_Name: Hitbox
+  m_Name: Hitbox Collider
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

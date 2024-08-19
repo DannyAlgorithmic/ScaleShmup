@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Pickup
   layers:
   - Default
   - TransparentFX
@@ -34,8 +35,8 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - pickups
+  - collection
   - detection
   m_SortingLayers:
   - name: Default

@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-
     Rigidbody2D rb;
     float speed = 15f;
 
-    // Start is called before the first frame update
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -26,10 +24,5 @@ public class Bullet : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

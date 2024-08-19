@@ -20,17 +20,7 @@ public class Movement : MonoBehaviour
         Vector2 movement = speedDif * accelRate;                        //Calculate force along x-axis to apply to the player
         body.AddForce(movement * body.mass, ForceMode2D.Force);         //Convert this to a vector and apply to rigidbody
 
-        // For those interested here is what AddForce() will do
-        /*
-            RB.velocity = new Vector2(RB.velocity.x + (Time.fixedDeltaTime * speedDif * accelRate) / RB.mass, RB.velocity.y);
-            Time.fixedDeltaTime is by default in Unity 0.02 seconds equal to 50 FixedUpdate() calls per second
-       */
 
-        // Platform Origin Effect -- Jumping velocity bugged
-        /*
-            Collider2D platformCollider = Physics2D.OverlapBox(_groundCheckPoint.position, _groundCheckSize, 0, _groundLayer);
-		    if (isGrounded && isGrounded.TryGetComponent(out Rigidbody2D platformBody))
-			    body.velocity = Vector2.ClampMagnitude(body.velocity + (platformBody.velocity * 0.3f), runMaxSpeed);
-        */
+
     }
 }

@@ -4,18 +4,19 @@ using UnityEngine;
 
 public class AmmoPickup : MonoBehaviour
 {
-    public ShootSystem.BulletType bulletType; // Tipo de bala que este pickup proporcionará
-    public int ammoAmount = 10; // Cantidad de munición que añadirá este pickup
+    public ShootSystem.BulletType bulletType;   // Tipo de bala que este pickup proporcionará
+    public int ammoAmount = 10;                 // Cantidad de munición que añadirá este pickup
+    public GameObject selfGameObject = null;
+    public Transform selfTransform = null;
+    public Rigidbody2D selfRigidbody = null;
+    public Collider2D selfCollider = null;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+
+    private void Awake()
     {
-        GameObject collisionGameobject = collision.gameObject; // First temporarily cache the collision gameobject
-        Transform collisionTransform = collisionGameobject.transform;
-
-        if (!collisionGameobject.CompareTag("Player") || !collisionTransform.root.TryGetComponent(out ShootSystem _shootSystem))
-            return; // Verificar si el objeto con el que colisionamos es el jugador
-
-        _shootSystem.AddAmmo(bulletType, ammoAmount); // Añadir la munición al tipo específico en el sistema de disparo
-        Destroy(gameObject);  // Destruir el pickup después de que se haya recogido
+        selfGameObject = gameObject;
+        selfTransform = transform;
+        selfRigidbody = GetComponent<Rigidbody2D>();
+        selfCollider = GetComponent<Collider2D>();
     }
 }

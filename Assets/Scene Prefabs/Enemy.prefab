@@ -187,7 +187,6 @@ GameObject:
   - component: {fileID: 1531481115821904277}
   - component: {fileID: 7100790313230709530}
   - component: {fileID: 4260039724933014774}
-  - component: {fileID: 2271847360568518570}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -262,7 +261,7 @@ MonoBehaviour:
   moveDirectionHistory: []
   dragDuringMoveCooldown: 0
   dragWhenOutOfControl: 5
-  agent: {fileID: 2271847360568518570}
+  agent: {fileID: 0}
   pathValid: 0
   body: {fileID: 4239968336468246351}
   trans: {fileID: 5196235927682265145}
@@ -389,28 +388,7 @@ MonoBehaviour:
   raycastDirections: []
   avoidedDirections: []
   blackboard: {fileID: 8597079094342163787}
---- !u!195 &2271847360568518570
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1943236709638476821}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.18
-  m_Speed: 3
-  m_Acceleration: Infinity
-  avoidancePriority: 50
-  m_AngularSpeed: 0
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 0
-  m_AutoBraking: 0
-  m_AutoRepath: 0
-  m_Height: 0.18
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 0
+  animator: {fileID: 0}
 --- !u!1 &2198929937093332752
 GameObject:
   m_ObjectHideFlags: 0
