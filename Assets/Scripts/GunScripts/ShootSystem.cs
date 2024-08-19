@@ -9,6 +9,7 @@ public class ShootSystem : MonoBehaviour
     private BulletType selectedBulletType = BulletType.Default;
 
     public Transform firePoint;
+    public Animator animator;
 
     [SerializeField] private float cooldownAtaque;
     private float tiempoSiguienteAtaque;
@@ -26,12 +27,9 @@ public class ShootSystem : MonoBehaviour
 
     private Dictionary<BulletType, (int currentAmmo, int maxAmmo)> ammoCounts;
 
-    // Animator reference
-    private Animator animator;
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
 
         // Initialize ammo counts with the inspector values
         ammoCounts = new Dictionary<BulletType, (int, int)>()

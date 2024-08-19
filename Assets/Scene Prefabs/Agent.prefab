@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 1655574642815766937}
   - component: {fileID: 6860716854727114835}
   - component: {fileID: 7955641725858474226}
-  - component: {fileID: 6342375254067195643}
+  - component: {fileID: 7174018546019239555}
   m_Layer: 0
   m_Name: Agent
   m_TagString: Player
@@ -201,7 +201,7 @@ Rigidbody2D:
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &6860716854727114835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,7 +215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeedCurrent: 0
-  moveSpeedTarget: 9
+  moveSpeedTarget: 6
   acceleration: 27
   decceleration: 16
   moveCooldown: 0
@@ -225,17 +225,17 @@ MonoBehaviour:
   moveDirectionInput: {x: 0, y: 0}
   moveDirectionTarget: {x: 0, y: 0}
   moveDirectionHistory: []
-  aimSpeedCurrent: 0
-  aimSpeedTarget: 5
-  aimCooldown: 0
-  canAim: 1
+  rotationSpeedCurrent: 0
+  rotationSpeedTarget: 0
+  rotationCooldown: 0
+  canRotation: 1
   aimDirectionCurrent: {x: 0, y: 0}
   aimDirectionInput: {x: 0, y: 0}
   aimDirectionTarget: {x: 0, y: 1}
   aimDirectionHistory: []
   dragDuringMoveCooldown: 0.1
   dragWhenOutOfControl: 14
-  body: {fileID: 0}
+  body: {fileID: 1655574642815766937}
 --- !u!114 &7955641725858474226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,7 +249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blackboard: {fileID: 6860716854727114835}
---- !u!114 &6342375254067195643
+--- !u!114 &7174018546019239555
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -258,45 +258,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1859905479788694950}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87d54ef179c2d724a85eab361486f69b, type: 3}
+  m_Script: {fileID: 11500000, guid: 32e3c25abc1d5f249b6f1aa139d8682e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  avoidenceDistanceStart: 0
-  seekingDistanceStart: 0
-  avoidenceDistanceLength: 5
-  seekingDistanceLength: 5
-  avoidenceContactFilter:
-    useTriggers: 1
-    useLayerMask: 1
-    useDepth: 0
-    useOutsideDepth: 0
-    useNormalAngle: 0
-    useOutsideNormalAngle: 0
-    layerMask:
-      serializedVersion: 2
-      m_Bits: 1
-    minDepth: 0
-    maxDepth: 0
-    minNormalAngle: 0
-    maxNormalAngle: 0
-  seekingContactFilter:
-    useTriggers: 1
-    useLayerMask: 1
-    useDepth: 0
-    useOutsideDepth: 0
-    useNormalAngle: 0
-    useOutsideNormalAngle: 0
-    layerMask:
-      serializedVersion: 2
-      m_Bits: 16
-    minDepth: 0
-    maxDepth: 0
-    minNormalAngle: 0
-    maxNormalAngle: 0
-  avoidanceDirections: []
-  unfavorableDirections: []
-  favorableDirections: []
-  guidanceDirections: []
   blackboard: {fileID: 6860716854727114835}
 --- !u!1 &2039667451811162046
 GameObject:
@@ -431,7 +395,6 @@ GameObject:
   - component: {fileID: 6433997427535803889}
   - component: {fileID: 5532238966069976685}
   - component: {fileID: 6474518668377610587}
-  - component: {fileID: 4393485721496623028}
   m_Layer: 0
   m_Name: vaquero_gun
   m_TagString: Untagged
@@ -556,29 +519,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 7.15
---- !u!114 &4393485721496623028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2435990594223509231}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b17611d0b7916a64b96db6a1419768ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletDefault: {fileID: 36636330331607527, guid: 0fa6acb03edd83f45957fe497c957032, type: 3}
-  bulletType1: {fileID: 36636330331607527, guid: 0a35287a425996045a360a934e354570, type: 3}
-  bulletType2: {fileID: 36636330331607527, guid: aac8cedeaa62cf9418a375faf60b8d54, type: 3}
-  bulletType3: {fileID: 36636330331607527, guid: 2408cd7f16f482140834e7cfbe66166e, type: 3}
-  firePoint: {fileID: 5214575920025827491}
-  cooldownAtaque: 0.3
-  maxBulletsInClip: 6
-  reloadTime: 1
-  maxAmmoType1: 30
-  maxAmmoType2: 30
-  maxAmmoType3: 30
 --- !u!1 &7076101804830780901
 GameObject:
   m_ObjectHideFlags: 0
