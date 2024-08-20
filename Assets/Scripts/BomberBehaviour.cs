@@ -10,6 +10,7 @@ public class BomberBehaviour : MonoBehaviour
     public Transform attackOrigin = null;
     public Blackboard blackboard = null;
 
+    bool hasExploded = false;
     int contactCount;
     List<Collider2D> contacts = new List<Collider2D>();
 
@@ -20,12 +21,13 @@ public class BomberBehaviour : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(blackboard.health <= 0) return;
+        if(hasExploded) return;
         contactCount = Physics2D.OverlapCircle(attackOrigin.position, attackRadius, attackFilter, contacts);
         for (int i = 0; i < contactCount; i++)
         {
             Collider2D hit = contacts[i];
             if (hit == null || !hit.gameObject.CompareTag(attackTagFilter)) continue;
+            hasExploded = true;
             blackboard.animator.SetTrigger("Attack");
             blackboard.moveCooldown = float.PositiveInfinity;
             break;
@@ -41,7 +43,7 @@ public class BomberBehaviour : MonoBehaviour
             Collider2D hit = contacts[i];
             if(hit == null || !hit.gameObject.CompareTag(attackTagFilter)) continue;
             if(!hit.transform.root.TryGetComponent(out Blackboard _blackboardHit)) continue;
-            _blackboardHit.moveCooldown = Mathf.Clamp(blackboard.moveCooldown + 0.3f, 0, 2f);
+            _blackboardHit.health -= 6;
             _blackboardHit.moveCooldown = Mathf.Clamp(blackboard.moveCooldown + 0.3f, 0, 2f);
         }
     }
