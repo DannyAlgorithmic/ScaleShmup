@@ -26,7 +26,6 @@ public class BomberBehaviour : MonoBehaviour
         {
             Collider2D hit = contacts[i];
             if (hit == null || !hit.gameObject.CompareTag(attackTagFilter)) continue;
-            blackboard.health = 0;
             blackboard.animator.SetTrigger("Attack");
             blackboard.moveCooldown = float.PositiveInfinity;
             break;
@@ -42,7 +41,8 @@ public class BomberBehaviour : MonoBehaviour
             Collider2D hit = contacts[i];
             if(hit == null || !hit.gameObject.CompareTag(attackTagFilter)) continue;
             if(!hit.transform.root.TryGetComponent(out Blackboard _blackboardHit)) continue;
-            _blackboardHit.health = 0;
+            _blackboardHit.moveCooldown = Mathf.Clamp(blackboard.moveCooldown + 0.3f, 0, 2f);
+            _blackboardHit.moveCooldown = Mathf.Clamp(blackboard.moveCooldown + 0.3f, 0, 2f);
         }
     }
 
