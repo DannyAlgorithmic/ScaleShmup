@@ -4,5 +4,5 @@ public class Enemy : MonoBehaviour
 {
     public bool IsUnderEffect = false;
 
-    //You can add more code for the enemy here like taking damage...
+    // Aquí podrías añadir otros métodos y lógica para el enemigo
 }

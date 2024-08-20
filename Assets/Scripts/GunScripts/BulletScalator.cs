@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BulletScalator : MonoBehaviour
@@ -7,9 +5,10 @@ public class BulletScalator : MonoBehaviour
     public enum BulletType { Shrink, ExpandHorizontal, ExpandVertical }
     public BulletType bulletType;
 
-    public float shrinkSpeed = 5f;
-    public float expandSpeed = 5f;
-    public float effectDuration = 2f;
+    public float shrinkAmount = 0.5f;
+    public float expandAmount = 3f;
+    public float scaleTime = 1f;  // Tiempo para llegar a la escala objetivo
+    public float holdDuration = 2f;  // Tiempo para mantener la escala objetivo
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -20,53 +19,29 @@ public class BulletScalator : MonoBehaviour
             if (enemy != null && !enemy.IsUnderEffect)
             {
                 enemy.IsUnderEffect = true;
-                Vector3 originalScale = enemy.transform.localScale;
+
+                Vector3 targetScale = enemy.transform.localScale;
 
                 switch (bulletType)
                 {
                     case BulletType.Shrink:
-                        StartCoroutine(ScaleEnemy(enemy, originalScale, originalScale * 0.5f, shrinkSpeed));
+                        targetScale *= shrinkAmount;
                         break;
                     case BulletType.ExpandHorizontal:
-                        Vector3 newScaleHorizontal = new Vector3(originalScale.x * 3, originalScale.y, originalScale.z);
-                        StartCoroutine(ScaleEnemy(enemy, originalScale, newScaleHorizontal, expandSpeed));
+                        targetScale.x *= expandAmount;
                         break;
                     case BulletType.ExpandVertical:
-                        Vector3 newScaleVertical = new Vector3(originalScale.x, originalScale.y * 3, originalScale.z);
-                        StartCoroutine(ScaleEnemy(enemy, originalScale, newScaleVertical, expandSpeed));
+                        targetScale.y *= expandAmount;
                         break;
                 }
 
-                Destroy(gameObject);  // Destruye la bala
+                // Añade el script de escalado dinámico al enemigo
+                ScaleEffect scaleEffect = enemy.gameObject.AddComponent<ScaleEffect>();
+                scaleEffect.Initialize(enemy, targetScale, scaleTime, holdDuration);
+
+                // Destruye la bala
+                Destroy(gameObject);
             }
         }
-    }
-
-    private IEnumerator ScaleEnemy(Enemy enemy, Vector3 originalScale, Vector3 targetScale, float speed)
-    {
-        float elapsedTime = 0f;
-        float scaleFactor = 0f;
-
-        // Escala el objeto al nuevo tamaño
-        while (elapsedTime < effectDuration)
-        {
-            scaleFactor = Mathf.Lerp(1, 0, elapsedTime / effectDuration);
-            enemy.transform.localScale = Vector3.Lerp(targetScale, originalScale, scaleFactor);
-            elapsedTime += Time.deltaTime * speed;
-            yield return null;
-        }
-
-        // Vuelve al tamaño original
-        elapsedTime = 0f;
-        while (elapsedTime < effectDuration)
-        {
-            scaleFactor = Mathf.Lerp(0, 1, elapsedTime / effectDuration);
-            enemy.transform.localScale = Vector3.Lerp(targetScale, originalScale, scaleFactor);
-            elapsedTime += Time.deltaTime * speed;
-            yield return null;
-        }
-
-        enemy.transform.localScale = originalScale;
-        enemy.IsUnderEffect = false;  // Permite que el enemigo pueda ser afectado nuevamente
     }
 }

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,10 +6,13 @@ public class ShootSystem : MonoBehaviour
     public enum BulletType { Default, Type1, Type2, Type3 }
     public Bullet bulletDefault, bulletType1, bulletType2, bulletType3;
     private BulletType selectedBulletType = BulletType.Default;
-    private BulletType lastReloadedBulletType = BulletType.Default; // Guarda el tipo de bala del último recargado
+    private BulletType lastReloadedBulletType = BulletType.Default;
 
     public Transform firePoint;
     public Animator animator;
+
+    [SerializeField] private SpriteRenderer weaponSpriteRenderer;
+    [SerializeField] private Sprite defaultWeaponSprite, weaponType1Sprite, weaponType2Sprite, weaponType3Sprite;
 
     [SerializeField] private float cooldownAtaque;
     private float tiempoSiguienteAtaque;
@@ -51,6 +53,7 @@ public class ShootSystem : MonoBehaviour
         bulletsInClip = maxBulletsInClip;
         isReloading = false;
         tiempoSiguienteAtaque = 0f;
+        UpdateWeaponSprite();
     }
 
     void Update()
@@ -75,7 +78,7 @@ public class ShootSystem : MonoBehaviour
 
                 if (!isReloading)
                 {
-                    animator.SetTrigger("Shoot");
+                    PlayShootAnimation();
                 }
             }
         }
@@ -88,19 +91,19 @@ public class ShootSystem : MonoBehaviour
 
     private void HandleBulletSelection()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha0))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             ChangeBulletType(BulletType.Default);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha1))
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             ChangeBulletType(BulletType.Type1);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             ChangeBulletType(BulletType.Type2);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             ChangeBulletType(BulletType.Type3);
         }
@@ -108,16 +111,19 @@ public class ShootSystem : MonoBehaviour
 
     private void ChangeBulletType(BulletType newBulletType)
     {
-        if (newBulletType != selectedBulletType)
+        if (ammoCounts[newBulletType].currentAmmo > 0 || newBulletType == BulletType.Default)
         {
-            // Devuelve las balas restantes al inventario
-            ReturnRemainingBulletsToInventory();
-
-            // Cambia el tipo de bala seleccionado
-            selectedBulletType = newBulletType;
-
-            // Actualiza las balas en el cargador al tipo seleccionado
-            bulletsInClip = bulletsInClipByType[selectedBulletType];
+            if (newBulletType != selectedBulletType)
+            {
+                ReturnRemainingBulletsToInventory();
+                selectedBulletType = newBulletType;
+                bulletsInClip = bulletsInClipByType[selectedBulletType];
+                UpdateWeaponSprite();
+            }
+        }
+        else
+        {
+            Debug.Log("No tienes munición de este tipo.");
         }
     }
 
@@ -125,11 +131,8 @@ public class ShootSystem : MonoBehaviour
     {
         if (selectedBulletType != BulletType.Default)
         {
-            // Devuelve las balas restantes al inventario del tipo actual
             var ammoData = ammoCounts[selectedBulletType];
             ammoCounts[selectedBulletType] = (ammoData.currentAmmo + bulletsInClip, ammoData.maxAmmo);
-
-            // Restablece el número de balas en el cargador del tipo actual a 0
             bulletsInClipByType[selectedBulletType] = 0;
         }
     }
@@ -140,7 +143,6 @@ public class ShootSystem : MonoBehaviour
         Bullet theBullet = Instantiate(bulletToShoot, firePoint.position, firePoint.rotation);
         theBullet.shoot(firePoint.up);
         bulletsInClip--;
-
         bulletsInClipByType[selectedBulletType]--;
 
         if (selectedBulletType != BulletType.Default)
@@ -166,11 +168,32 @@ public class ShootSystem : MonoBehaviour
         if (isReloading || bulletsInClip == maxBulletsInClip)
             return;
 
-        isReloading = true;
+        if (ammoCounts[selectedBulletType].currentAmmo > 0 || selectedBulletType == BulletType.Default)
+        {
+            isReloading = true;
 
-        animator.SetTrigger("Reload");
+            switch (selectedBulletType)
+            {
+                case BulletType.Type1:
+                    animator.SetTrigger("ReloadType1");
+                    break;
+                case BulletType.Type2:
+                    animator.SetTrigger("ReloadType2");
+                    break;
+                case BulletType.Type3:
+                    animator.SetTrigger("ReloadType3");
+                    break;
+                default:
+                    animator.SetTrigger("ReloadDefault");
+                    break;
+            }
 
-        Invoke(nameof(Reload), reloadTime);
+            Invoke(nameof(Reload), reloadTime);
+        }
+        else
+        {
+            Debug.Log("No tienes munición para recargar.");
+        }
     }
 
     private void Reload()
@@ -182,6 +205,7 @@ public class ShootSystem : MonoBehaviour
         ammoCounts[selectedBulletType] = (ammoData.currentAmmo - bulletsToReload, ammoData.maxAmmo);
         isReloading = false;
         lastReloadedBulletType = selectedBulletType;
+
         animator.SetTrigger("ReloadOff");
     }
 
@@ -189,5 +213,49 @@ public class ShootSystem : MonoBehaviour
     {
         var ammoData = ammoCounts[type];
         ammoCounts[type] = (Mathf.Min(ammoData.currentAmmo + amount, ammoData.maxAmmo), ammoData.maxAmmo);
+    }
+
+    private void UpdateWeaponSprite()
+    {
+        switch (selectedBulletType)
+        {
+            case BulletType.Type1:
+                weaponSpriteRenderer.sprite = weaponType1Sprite;
+                break;
+            case BulletType.Type2:
+                weaponSpriteRenderer.sprite = weaponType2Sprite;
+                break;
+            case BulletType.Type3:
+                weaponSpriteRenderer.sprite = weaponType3Sprite;
+                break;
+            default:
+                weaponSpriteRenderer.sprite = defaultWeaponSprite;
+                break;
+        }
+    }
+
+    private void PlayShootAnimation()
+    {
+        switch (selectedBulletType)
+        {
+            case BulletType.Type1:
+                animator.SetTrigger("ShootType1");
+                break;
+            case BulletType.Type2:
+                animator.SetTrigger("ShootType2");
+                break;
+            case BulletType.Type3:
+                animator.SetTrigger("ShootType3");
+                break;
+            default:
+                animator.SetTrigger("ShootDefault");
+                break;
+        }
+    }
+
+    public bool HasAmmoForType(int bulletTypeNumber)
+    {
+        BulletType bulletType = (BulletType)(bulletTypeNumber - 1); // Convertir el número al tipo de bala
+        return ammoCounts[bulletType].currentAmmo > 0 || bulletType == BulletType.Default;
     }
 }
