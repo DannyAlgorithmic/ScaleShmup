@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8621777567519025577, guid: 6854afb8699694845897f98cf2f5be8c, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: c4007622dfe8ff548bfd64be06cd55ce, type: 2}
     - target: {fileID: 1943236709638476821, guid: 6854afb8699694845897f98cf2f5be8c, type: 3}
       propertyPath: m_Name
       value: Ghost - Grabby
@@ -56,8 +60,60 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8060358100608762265, guid: 6854afb8699694845897f98cf2f5be8c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.015
+      objectReference: {fileID: 0}
+    - target: {fileID: 8060358100608762265, guid: 6854afb8699694845897f98cf2f5be8c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.209
+      objectReference: {fileID: 0}
+    - target: {fileID: 8349227349585865772, guid: 6854afb8699694845897f98cf2f5be8c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.046
+      objectReference: {fileID: 0}
+    - target: {fileID: 8349227349585865772, guid: 6854afb8699694845897f98cf2f5be8c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.334
+      objectReference: {fileID: 0}
+    - target: {fileID: 8381236683433743578, guid: 6854afb8699694845897f98cf2f5be8c, type: 3}
+      propertyPath: m_Size.x
+      value: 0.325
+      objectReference: {fileID: 0}
+    - target: {fileID: 8381236683433743578, guid: 6854afb8699694845897f98cf2f5be8c, type: 3}
+      propertyPath: m_Size.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8381236683433743578, guid: 6854afb8699694845897f98cf2f5be8c, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.015
+      objectReference: {fileID: 0}
+    - target: {fileID: 8381236683433743578, guid: 6854afb8699694845897f98cf2f5be8c, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1943236709638476821, guid: 6854afb8699694845897f98cf2f5be8c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5519692793928259308}
   m_SourcePrefab: {fileID: 100100000, guid: 6854afb8699694845897f98cf2f5be8c, type: 3}
+--- !u!1 &5540275684988594169 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1943236709638476821, guid: 6854afb8699694845897f98cf2f5be8c, type: 3}
+  m_PrefabInstance: {fileID: 6202793813857711084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5519692793928259308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5540275684988594169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b05138b6f89aad4ba05b59e9b94fae6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
