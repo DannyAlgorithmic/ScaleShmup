@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GrabbyBehaviour : MonoBehaviour
+public class TornadoBehaviour : MonoBehaviour
 {
     public float attackRadius = 1f;
     public string attackTagFilter = string.Empty;
@@ -10,12 +10,14 @@ public class GrabbyBehaviour : MonoBehaviour
     public Transform attackOrigin = null;
     public Blackboard blackboard = null;
 
+    float walkingSpeed = 0f;
     bool isAttacking = false;
     int contactCount;
     List<Collider2D> contacts = new List<Collider2D>();
 
     private void Awake()
     {
+        walkingSpeed = blackboard.moveSpeedTarget;
         contacts = new List<Collider2D>();
     }
 
@@ -28,7 +30,6 @@ public class GrabbyBehaviour : MonoBehaviour
             Collider2D hit = contacts[i];
             if (hit == null || !hit.gameObject.CompareTag(attackTagFilter)) continue;
             isAttacking = true;
-            blackboard.body.velocity = Vector2.zero;
             blackboard.animator.SetTrigger("Attack");
             break;
         }
@@ -43,9 +44,9 @@ public class GrabbyBehaviour : MonoBehaviour
             Collider2D hit = contacts[i];
             if (hit == null || !hit.gameObject.CompareTag(attackTagFilter)) continue;
             if (!hit.transform.root.TryGetComponent(out Blackboard _blackboardHit)) continue;
-            _blackboardHit.health -= 3;
-            _blackboardHit.body.velocity *= 0.6f;
-            _blackboardHit.moveCooldown = Mathf.Clamp(_blackboardHit.moveCooldown + 0.4f, 0f, 2f);
+            _blackboardHit.health -= 1;
+            _blackboardHit.body.velocity *= 0.75f;
+            _blackboardHit.body.velocity += 4 * (Vector2)(blackboard.trans.position - _blackboardHit.trans.position).normalized;
         }
     }
 
@@ -64,6 +65,16 @@ public class GrabbyBehaviour : MonoBehaviour
     public void IsAttacking()
     {
         isAttacking = true;
+    }
+
+    public void SetAttackSpeed()
+    {
+        blackboard.moveSpeedTarget = walkingSpeed * 1.75f;
+    }
+
+    public void SetWalkingSpeed()
+    {
+        blackboard.moveSpeedTarget = walkingSpeed;
     }
 
     private void OnDrawGizmos()

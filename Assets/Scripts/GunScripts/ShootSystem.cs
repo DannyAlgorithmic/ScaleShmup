@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum BulletType { Default, Type1, Type2, Type3 }
 public class ShootSystem : MonoBehaviour
 {
-    public enum BulletType { Default, Type1, Type2, Type3 }
     public Bullet bulletDefault, bulletType1, bulletType2, bulletType3;
     private BulletType selectedBulletType = BulletType.Default;
     private BulletType lastReloadedBulletType = BulletType.Default;
@@ -118,23 +118,27 @@ public class ShootSystem : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
+            animator.Play("IdleGun");
             ChangeBulletType(BulletType.Default);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
+            animator.Play("IdleGreen");
             ChangeBulletType(BulletType.Type1);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
+            animator.Play("IdleRed");
             ChangeBulletType(BulletType.Type2);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha4))
         {
+            animator.Play("IdleYellow");
             ChangeBulletType(BulletType.Type3);
         }
     }
 
-    private void ChangeBulletType(BulletType newBulletType)
+    public void ChangeBulletType(BulletType newBulletType)
     {
         if (ammoCounts[newBulletType].currentAmmo > 0 || newBulletType == BulletType.Default)
         {
@@ -192,7 +196,7 @@ public class ShootSystem : MonoBehaviour
         }
     }
 
-    private void StartReloading()
+    public void StartReloading()
     {
         if (isReloading || bulletsInClip == maxBulletsInClip)
             return;
@@ -230,7 +234,7 @@ public class ShootSystem : MonoBehaviour
         }
     }
 
-    private void Reload()
+    public void Reload()
     {
         var ammoData = ammoCounts[selectedBulletType];
         int bulletsToReload = Mathf.Min(maxBulletsInClip - bulletsInClip, ammoData.currentAmmo);

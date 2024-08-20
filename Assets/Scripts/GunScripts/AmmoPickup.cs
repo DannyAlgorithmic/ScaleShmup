@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AmmoPickup : MonoBehaviour
 {
-    public ShootSystem.BulletType bulletType;   // Tipo de bala que este pickup proporcionará
+    public BulletType bulletType;               // Tipo de bala que este pickup proporcionará
     public int ammoAmount = 10;                 // Cantidad de munición que añadirá este pickup
     public GameObject selfGameObject = null;
     public Transform selfTransform = null;

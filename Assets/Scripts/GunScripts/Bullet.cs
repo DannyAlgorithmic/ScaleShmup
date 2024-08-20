@@ -21,9 +21,10 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D hit)
     {
-        if (hit == null || hit.gameObject.CompareTag("Player") || !hit.transform.root.TryGetComponent(out Blackboard _blackboardHit)) return;
-        _blackboardHit.health += 1;
-        Destroy(gameObject);
+        if (hit == null || !hit.gameObject.CompareTag("Enemy") || !hit.transform.root.TryGetComponent(out Blackboard _blackboardHit)) return;
+        _blackboardHit.health -= 1;
+        if(_blackboardHit.health <= 0) Destroy(_blackboardHit.gameObject);
+        Destroy(gameObject, 0.05f);
     }
 
     void OnTriggerExit2D(Collider2D other)

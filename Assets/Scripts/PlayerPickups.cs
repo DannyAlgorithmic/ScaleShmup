@@ -16,6 +16,8 @@ public class PlayerPickups : MonoBehaviour
         if (collisionTransform.TryGetComponent(out AmmoPickup _ammoPickup))
         {
             shootSystem.AddAmmo(_ammoPickup.bulletType, _ammoPickup.ammoAmount);
+            shootSystem.ChangeBulletType(_ammoPickup.bulletType);
+            shootSystem.StartReloading();
             _ammoPickup.selfGameObject.SetActive(false);
         }
     }

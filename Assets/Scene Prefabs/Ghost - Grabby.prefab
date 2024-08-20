@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 5526383645849123793}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.348, y: 0.288, z: 0}
+  m_LocalPosition: {x: -0.23, y: 0.288, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -128,6 +128,10 @@ PrefabInstance:
       value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 8597079094342163787, guid: 6854afb8699694845897f98cf2f5be8c, type: 3}
+      propertyPath: health
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8597079094342163787, guid: 6854afb8699694845897f98cf2f5be8c, type: 3}
       propertyPath: moveSpeedTarget
       value: 3
       objectReference: {fileID: 0}
@@ -181,7 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b05138b6f89aad4ba05b59e9b94fae6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRadius: 0.5
+  attackRadius: 0.55
   attackTagFilter: Player
   attackFilter:
     useTriggers: 1
