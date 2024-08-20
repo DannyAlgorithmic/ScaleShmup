@@ -29,6 +29,14 @@ public class ShootSystem : MonoBehaviour
     private Dictionary<BulletType, (int currentAmmo, int maxAmmo)> ammoCounts;
     private Dictionary<BulletType, int> bulletsInClipByType;
 
+    // References to audio clips
+    [SerializeField] private AudioClip shootSoundDefault, shootSoundType1, shootSoundType2, shootSoundType3;
+    [SerializeField] private AudioClip reloadSound;
+    [SerializeField] private AudioClip emptyChamberSound;
+
+    private AudioSource audioSource;
+    private bool hasPlayedEmptyChamberSound = false; // Flag to ensure empty chamber sound plays only once per click
+
     private void Awake()
     {
         ammoCounts = new Dictionary<BulletType, (int, int)>()
@@ -46,6 +54,8 @@ public class ShootSystem : MonoBehaviour
             { BulletType.Type2, 0 },
             { BulletType.Type3, 0 }
         };
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Start()
@@ -69,7 +79,8 @@ public class ShootSystem : MonoBehaviour
             return;
         }
 
-        if ((Input.GetButton("Fire1") || Input.GetMouseButton(0)) && tiempoSiguienteAtaque <= 0)
+        // Detecta cuando se hace clic (no cuando se mantiene pulsado)
+        if (Input.GetButtonDown("Fire1") || Input.GetMouseButtonDown(0))
         {
             if (bulletsInClip > 0)
             {
@@ -80,7 +91,21 @@ public class ShootSystem : MonoBehaviour
                 {
                     PlayShootAnimation();
                 }
+
+                hasPlayedEmptyChamberSound = false; // Reset flag after a successful shot
             }
+            else if (!hasPlayedEmptyChamberSound)
+            {
+                // Play empty chamber sound once per click
+                PlayEmptyChamberSound();
+                hasPlayedEmptyChamberSound = true;
+            }
+        }
+
+        // Reset the flag when the mouse button is released
+        if (Input.GetButtonUp("Fire1") || Input.GetMouseButtonUp(0))
+        {
+            hasPlayedEmptyChamberSound = false;
         }
 
         if (tiempoSiguienteAtaque > 0)
@@ -139,11 +164,15 @@ public class ShootSystem : MonoBehaviour
 
     private void Shoot()
     {
+        CinemachineShake.Instance.ShakeCamera(3f, .1f);
         Bullet bulletToShoot = GetBulletPrefab(selectedBulletType);
         Bullet theBullet = Instantiate(bulletToShoot, firePoint.position, firePoint.rotation);
         theBullet.shoot(firePoint.up);
         bulletsInClip--;
         bulletsInClipByType[selectedBulletType]--;
+
+        // Play the corresponding shoot sound
+        PlayShootSound(selectedBulletType);
 
         if (selectedBulletType != BulletType.Default)
         {
@@ -171,6 +200,11 @@ public class ShootSystem : MonoBehaviour
         if (ammoCounts[selectedBulletType].currentAmmo > 0 || selectedBulletType == BulletType.Default)
         {
             isReloading = true;
+
+            // Play the reload sound in a loop
+            audioSource.clip = reloadSound;
+            audioSource.loop = true;
+            audioSource.Play();
 
             switch (selectedBulletType)
             {
@@ -205,6 +239,10 @@ public class ShootSystem : MonoBehaviour
         ammoCounts[selectedBulletType] = (ammoData.currentAmmo - bulletsToReload, ammoData.maxAmmo);
         isReloading = false;
         lastReloadedBulletType = selectedBulletType;
+
+        // Stop the reload sound when reloading is done
+        audioSource.loop = false;
+        audioSource.Stop();
 
         animator.SetTrigger("ReloadOff");
     }
@@ -253,9 +291,33 @@ public class ShootSystem : MonoBehaviour
         }
     }
 
+    private void PlayShootSound(BulletType type)
+    {
+        switch (type)
+        {
+            case BulletType.Type1:
+                audioSource.PlayOneShot(shootSoundType1);
+                break;
+            case BulletType.Type2:
+                audioSource.PlayOneShot(shootSoundType2);
+                break;
+            case BulletType.Type3:
+                audioSource.PlayOneShot(shootSoundType3);
+                break;
+            default:
+                audioSource.PlayOneShot(shootSoundDefault);
+                break;
+        }
+    }
+
+    private void PlayEmptyChamberSound()
+    {
+        audioSource.PlayOneShot(emptyChamberSound);
+    }
+
     public bool HasAmmoForType(int bulletTypeNumber)
     {
-        BulletType bulletType = (BulletType)(bulletTypeNumber - 1); // Convertir el número al tipo de bala
+        BulletType bulletType = (BulletType)(bulletTypeNumber - 1);
         return ammoCounts[bulletType].currentAmmo > 0 || bulletType == BulletType.Default;
     }
 }

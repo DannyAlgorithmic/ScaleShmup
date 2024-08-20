@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
 
     Rigidbody2D rb;
+    [SerializeField]
     float speed = 15f;
 
     // Start is called before the first frame update
@@ -26,10 +27,5 @@ public class Bullet : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

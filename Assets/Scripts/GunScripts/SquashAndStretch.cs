@@ -6,6 +6,9 @@ public class SquashAndStretch : MonoBehaviour
     public float stretchFactor = 0.2f; // Cuánto se estira
     public float animationSpeed = 10f; // Velocidad de la animación
 
+    public AudioClip walkSound;        // Sonido de caminar
+    private AudioSource audioSource;   // Fuente de audio
+
     private Vector3 originalScale;
     private bool isAnimating = false;
 
@@ -13,6 +16,11 @@ public class SquashAndStretch : MonoBehaviour
     {
         // Guardar la escala original del personaje
         originalScale = transform.localScale;
+
+        // Configurar el AudioSource
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.clip = walkSound;
+        audioSource.loop = true; // Hacer que el sonido se repita en bucle
     }
 
     void Update()
@@ -21,10 +29,22 @@ public class SquashAndStretch : MonoBehaviour
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
         {
             isAnimating = true;
+
+            // Si no está reproduciendo el sonido, iniciar el sonido de caminar
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
         }
         else
         {
             isAnimating = false;
+
+            // Detener el sonido de caminar si no se están presionando las teclas WASD
+            if (audioSource.isPlaying)
+            {
+                audioSource.Stop();
+            }
         }
 
         // Si se está presionando una tecla, reproducir la animación de Squash and Stretch
