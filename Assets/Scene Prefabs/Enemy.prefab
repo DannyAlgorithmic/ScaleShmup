@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8381236683433743578}
   m_Layer: 6
   m_Name: Hitbox
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -82,9 +82,10 @@ GameObject:
   - component: {fileID: 7100790313230709530}
   - component: {fileID: 4260039724933014774}
   - component: {fileID: -8621777567519025577}
+  - component: {fileID: 882117535435224532}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -306,6 +307,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &882117535435224532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943236709638476821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21fe1f5a2cf829142800bf3d3f08fe20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUnderEffect: 0
 --- !u!1 &2198929937093332752
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,7 +332,7 @@ GameObject:
   - component: {fileID: 1934475489528622193}
   m_Layer: 7
   m_Name: Impacts
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

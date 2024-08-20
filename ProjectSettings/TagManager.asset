@@ -5,18 +5,18 @@ TagManager:
   serializedVersion: 2
   tags:
   - Pickup
-  - Enermy
+  - Enemy
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - ground
+  - 
   - Water
   - UI
   - Hits
   - Impacts
   - Wall
-  - 
+  - projectile
   - 
   - 
   - 

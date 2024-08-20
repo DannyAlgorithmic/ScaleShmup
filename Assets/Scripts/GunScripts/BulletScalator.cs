@@ -14,7 +14,7 @@ public class BulletScalator : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            Enemy enemy = collision.GetComponent<Enemy>();
+            Enemy enemy = collision.transform.root.GetComponent<Enemy>();
 
             if (enemy != null && !enemy.IsUnderEffect)
             {
@@ -36,7 +36,7 @@ public class BulletScalator : MonoBehaviour
                 }
 
                 // Añade el script de escalado dinámico al enemigo
-                ScaleEffect scaleEffect = enemy.gameObject.AddComponent<ScaleEffect>();
+                ScaleEffect scaleEffect = enemy.transform.root.gameObject.AddComponent<ScaleEffect>();
                 scaleEffect.Initialize(enemy, targetScale, scaleTime, holdDuration);
 
                 // Destruye la bala

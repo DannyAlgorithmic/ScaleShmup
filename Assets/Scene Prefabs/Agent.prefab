@@ -1,5 +1,72 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &421104804671003948
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3182871246261038599}
+  - component: {fileID: 3073794533156617939}
+  m_Layer: 31
+  m_Name: Detection
+  m_TagString: Player
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3182871246261038599
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 421104804671003948}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4048350549253292776}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &3073794533156617939
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 421104804671003948}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0003951192, y: 0.19190842}
+  m_Size: {x: 0.2611599, y: 0.367092}
+  m_Direction: 0
 --- !u!1 &727889619844104108
 GameObject:
   m_ObjectHideFlags: 0
@@ -110,28 +177,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4b39867fd5a71e4785a33ead15c5ead, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 10
+  energy: 10
   moveSpeedCurrent: 0
-  moveSpeedTarget: 5
-  acceleration: 27
-  decceleration: 16
+  moveSpeedTarget: 2.25
+  acceleration: 32
+  decceleration: 12
   moveCooldown: 0
   canMove: 1
-  conserveMomentum: 1
   moveDirectionCurrent: {x: 0, y: 0}
   moveDirectionInput: {x: 0, y: 0}
   moveDirectionTarget: {x: 0, y: 0}
   moveDirectionHistory: []
-  rotationSpeedCurrent: 0
-  rotationSpeedTarget: 0
-  rotationCooldown: 0
-  canRotation: 1
-  aimDirectionCurrent: {x: 0, y: 0}
-  aimDirectionInput: {x: 0, y: 0}
-  aimDirectionTarget: {x: 0, y: 1}
-  aimDirectionHistory: []
   dragDuringMoveCooldown: 0.1
   dragWhenOutOfControl: 14
   body: {fileID: 1655574642815766937}
+  trans: {fileID: 8449815458456237810}
+  impactCollider: {fileID: 848871291843733102}
+  hitCollider: {fileID: 3723225061204742562}
+  animator: {fileID: 2367760463615376612}
+  pathValid: 0
 --- !u!114 &7955641725858474226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,9 +267,9 @@ AudioSource:
   m_GameObject: {fileID: 1859905479788694950}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -3204689791186081212, guid: 84aaf357f69988a44b9d0dd156bd5100, type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -249,7 +314,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.2
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -780,8 +845,10 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6412411800257960860}
-  - {fileID: 3198221359286118871}
   - {fileID: 8276963801027889818}
+  - {fileID: 3198221359286118871}
+  - {fileID: 3881235681678054772}
+  - {fileID: 3182871246261038599}
   m_Father: {fileID: 8449815458456237810}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7513993759325313547
@@ -815,6 +882,73 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8449815458456237810}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7902433170001412850
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3881235681678054772}
+  - component: {fileID: 6506318618104392358}
+  m_Layer: 30
+  m_Name: Collection
+  m_TagString: Player
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3881235681678054772
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7902433170001412850}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4048350549253292776}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &6506318618104392358
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7902433170001412850}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0003951192, y: 0.19190842}
+  m_Size: {x: 0.2611599, y: 0.367092}
+  m_Direction: 0
 --- !u!1 &8387108220593200739
 GameObject:
   m_ObjectHideFlags: 0
