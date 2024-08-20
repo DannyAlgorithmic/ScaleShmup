@@ -216,6 +216,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4b39867fd5a71e4785a33ead15c5ead, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 0
+  energy: 0
   moveSpeedCurrent: 0
   moveSpeedTarget: 4
   acceleration: 27
@@ -228,12 +230,11 @@ MonoBehaviour:
   moveDirectionHistory: []
   dragDuringMoveCooldown: 0.1
   dragWhenOutOfControl: 14
-  agent: {fileID: 0}
-  pathValid: 0
   body: {fileID: 1655574642815766937}
   trans: {fileID: 8449815458456237810}
   impactCollider: {fileID: 3723225061204742562}
   hitCollider: {fileID: 848871291843733102}
+  pathValid: 0
 --- !u!114 &7955641725858474226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -382,7 +383,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!95 &2367760463615376612
 Animator:
   serializedVersion: 5

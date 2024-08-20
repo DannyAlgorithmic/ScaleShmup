@@ -18,11 +18,18 @@ public class Bullet : MonoBehaviour
 
     }
 
+    private void OnTriggerEnter2D(Collider2D hit)
+    {
+        if (hit == null || hit.gameObject.CompareTag("Player") || !hit.transform.root.TryGetComponent(out Blackboard _blackboardHit)) return;
+        _blackboardHit.health += 1;
+        Destroy(gameObject);
+    }
+
     void OnTriggerExit2D(Collider2D other)
     {
         if (other.tag == "Background")
         {
-            Destroy(gameObject);
+            Destroy(gameObject, 0.025f);
         }
     }
 }

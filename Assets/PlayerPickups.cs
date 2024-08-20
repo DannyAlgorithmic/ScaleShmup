@@ -11,8 +11,7 @@ public class PlayerPickups : MonoBehaviour
         GameObject collisionGameobject = collision.gameObject;
         Transform collisionTransform = collisionGameobject.transform;
 
-        if (!collisionGameobject.CompareTag("Pickup"))
-            return;
+        if (!collisionGameobject.CompareTag("Pickup")) return;
 
         if (collisionTransform.TryGetComponent(out AmmoPickup _ammoPickup))
         {
@@ -21,20 +20,3 @@ public class PlayerPickups : MonoBehaviour
         }
     }
 }
-
-/*
-    public int InitialAmmoCount;
-    public int MaximumAmmoCount;
-    ObjectPool<AmmoPickup> ammoPool;
-
-    private void Awake()
-    {
-        ammoPool = new ObjectPool<AmmoPickup>(CreateAmmo, InitialAmmoCount, MaximumAmmoCount);
-    }
-
-    public AmmoPickup CreateAmmo()
-    {
-
-            Debug.Log($"Ammo - Active: {ammoPool.CountActive}, Inactive: {ammoPool.CountInactive}, All: {ammoPool.CountAll}");
-    }
-*/

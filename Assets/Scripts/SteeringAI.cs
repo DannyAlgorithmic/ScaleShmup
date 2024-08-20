@@ -79,12 +79,6 @@ public class SteeringAI : MonoBehaviour
         float angleBetween              = Vector2.Angle(originalDirection, computedDirection);
         Vector2 targetDirection         = Mathf.Abs(angleBetween) <= 90f ? originalDirection : obstructedDirection;
 
-
-        if (originalDirection.magnitude > 0.5f)
-            Aim(Vector2.Lerp(blackboard.moveDirectionTarget, targetDirection, 1f * 10f * Time.fixedDeltaTime));
-        else
-            Aim(blackboard.moveDirectionTarget);
-
         blackboard.moveDirectionTarget = targetDirection;
     }
 
@@ -118,49 +112,5 @@ public class SteeringAI : MonoBehaviour
             Gizmos.DrawRay(startPos, raycastDirections[i] * (avoidenceDistanceLength * (1f - avoidedDirections[i])));
         }
 
-    }
-
-    public Animator animator;
-
-    void Aim(Vector2 _direction)
-    {
-        float angle = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg;
-
-        string animationName;
-
-        if (angle > -22.5f && angle <= 22.5f) // East
-        {
-            animationName = "East";
-        }
-        else if (angle > 22.5f && angle <= 67.5f) // Northeast
-        {
-            animationName = "Northeast";
-        }
-        else if (angle > 67.5f && angle <= 112.5f) // North
-        {
-            animationName = "North";
-        }
-        else if (angle > 112.5f && angle <= 157.5f) // Northwest
-        {
-            animationName = "Northwest";
-        }
-        else if (angle > 157.5f || angle <= -157.5f) // West
-        {
-            animationName = "West";
-        }
-        else if (angle > -157.5f && angle <= -112.5f) // Southwest
-        {
-            animationName = "Southwest";
-        }
-        else if (angle > -112.5f && angle <= -67.5f) // South
-        {
-            animationName = "South";
-        }
-        else // Southeast
-        {
-            animationName = "Southeast";
-        }
-
-        animator.SetTrigger(animationName);
     }
 }

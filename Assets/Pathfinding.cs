@@ -34,13 +34,11 @@ public class Pathfinding : MonoBehaviour
         if (blackboard.pathValid)
         {
             blackboard.moveDirectionInput = ((Vector2)blackboard.path.corners[1] - agentPosition).normalized;
-            Debug.Log($"Following path: {(Vector2)blackboard.path.corners[1]}");
         }
         else
         {
             blackboard.moveDirectionInput = Vector2.zero;
             Array.Clear(targets, 0, 1);
-            Debug.Log("No path found");
         }
     }
 }

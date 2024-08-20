@@ -5,6 +5,10 @@ using UnityEngine.AI;
 
 public class Blackboard : MonoBehaviour
 {
+    [Header("Resources")]
+    public int health;
+    public int energy;
+
     [Header("Movement")]
     public float moveSpeedCurrent;
     public float moveSpeedTarget;
@@ -25,28 +29,21 @@ public class Blackboard : MonoBehaviour
     public float dragDuringMoveCooldown = 0f;
     public float dragWhenOutOfControl = 2.5f;
 
-    [Space(15), Header("Navigation")]
-    public NavMeshAgent agent = null;
-    public NavMeshPath path = null;
-    public bool pathValid = false;
-
     public Rigidbody2D body = null;
     public Transform trans = null;
     public Collider2D impactCollider = null;
     public Collider2D hitCollider = null;
 
+    [Space(10), Header("Animation")]
+    public Animator animator = null;
+
+    [HideInInspector] public NavMeshPath path = null;
+    [HideInInspector] public bool pathValid = false;
     private void Awake()
     {
-        trans = transform;
-        path ??= new NavMeshPath();
-        body = GetComponent<Rigidbody2D>();
-    }
-
-    void Start()
-    {
-        path ??= new NavMeshPath();
-        agent.updateRotation = false;
-        agent.updateUpAxis = false;
+        trans   = transform;
+        path    = new NavMeshPath();
+        body    = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
