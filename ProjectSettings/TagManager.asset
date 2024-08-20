@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Pickup
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -14,6 +16,7 @@ TagManager:
   - Hits
   - Impacts
   - Wall
+  - projectile
   - 
   - 
   - 
@@ -33,10 +36,9 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - pickups
+  - collection
+  - detection
   m_SortingLayers:
   - name: Default
     uniqueID: 0
